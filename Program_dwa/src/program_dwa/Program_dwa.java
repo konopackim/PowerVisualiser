@@ -19,6 +19,7 @@ public class Program_dwa {
      */
     public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException {
         System.out.println("Cześć Michał :D\ntestujemy połączenie z przykładową bazą mySQL\n");
+        System.out.println("Cześć Krzyś!\nJasna sprawa ;)\n");
         dbConnection connect = new dbConnection();
         connect.connectToAndQueryDatabase();
         for(int i=0; i < connect.pierwsza.size(); i++){
