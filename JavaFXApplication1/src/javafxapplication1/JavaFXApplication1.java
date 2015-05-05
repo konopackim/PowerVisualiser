@@ -25,7 +25,6 @@ public class JavaFXApplication1 extends Application {
         
         stage.setScene(scene);
         stage.show();
-       
     }
 
     /**
