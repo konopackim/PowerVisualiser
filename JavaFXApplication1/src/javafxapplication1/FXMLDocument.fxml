@@ -8,25 +8,46 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 
-<AnchorPane id="AnchorPane" disable="false" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" visible="true" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="javafxapplication1.FXMLDocumentController">
+<AnchorPane id="AnchorPane" cache="true" cacheHint="QUALITY" disable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-1.0" minWidth="-1.0" prefHeight="558.0000999999975" prefWidth="772.0" visible="true" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="javafxapplication1.FXMLDocumentController">
   <children>
-    <TabPane prefHeight="-1.0" prefWidth="-1.0" rotateGraphic="false" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <TabPane focusTraversable="false" prefHeight="-1.0" prefWidth="-1.0" rotateGraphic="false" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <tabs>
-        <Tab text="Pie Chart">
-          <content>
-            <PieChart id="PieChart" fx:id="piechart" />
-          </content>
-        </Tab>
         <Tab text="Line Chart">
           <content>
-            <LineChart fx:id="lineChart">
-              <xAxis>
-                <CategoryAxis side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis side="LEFT" />
-              </yAxis>
-            </LineChart>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+              <children>
+                <LineChart id="LineChart" fx:id="lineChart1">
+                  <xAxis>
+                    <CategoryAxis side="BOTTOM" />
+                  </xAxis>
+                  <yAxis>
+                    <NumberAxis side="LEFT" />
+                  </yAxis>
+                </LineChart>
+                <LineChart id="LineChart" fx:id="lineChart2">
+                  <xAxis>
+                    <CategoryAxis side="BOTTOM" />
+                  </xAxis>
+                  <yAxis>
+                    <NumberAxis side="LEFT" />
+                  </yAxis>
+                </LineChart>
+                <LineChart id="LineChart" fx:id="lineChart3">
+                  <xAxis>
+                    <CategoryAxis side="BOTTOM" />
+                  </xAxis>
+                  <yAxis>
+                    <NumberAxis side="LEFT" />
+                  </yAxis>
+                </LineChart>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                    <Button fx:id="button1" mnemonicParsing="false" onAction="#button1click" text="Wyświetl" />
+                    <Button fx:id="button2" mnemonicParsing="false" onAction="#button2click" text="Czyść" />
+                  </children>
+                </HBox>
+              </children>
+            </VBox>
           </content>
         </Tab>
         <Tab text="Untitled Tab 1">
@@ -37,7 +58,4 @@
       </tabs>
     </TabPane>
   </children>
-  <effect>
-    <InnerShadow color="#001066" height="148.0" radius="73.5" width="148.0" />
-  </effect>
 </AnchorPane>
