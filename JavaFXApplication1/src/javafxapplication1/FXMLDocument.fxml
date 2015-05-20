@@ -2,6 +2,7 @@
 
 <?import java.lang.*?>
 <?import java.util.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
@@ -16,7 +17,7 @@
           <content>
             <VBox prefHeight="200.0" prefWidth="100.0">
               <children>
-                <LineChart id="LineChart" fx:id="lineChart1">
+                <LineChart fx:id="lineChart1">
                   <xAxis>
                     <CategoryAxis side="BOTTOM" />
                   </xAxis>
@@ -24,7 +25,7 @@
                     <NumberAxis side="LEFT" />
                   </yAxis>
                 </LineChart>
-                <LineChart id="LineChart" fx:id="lineChart2">
+                <LineChart fx:id="lineChart2">
                   <xAxis>
                     <CategoryAxis side="BOTTOM" />
                   </xAxis>
@@ -32,7 +33,7 @@
                     <NumberAxis side="LEFT" />
                   </yAxis>
                 </LineChart>
-                <LineChart id="LineChart" fx:id="lineChart3">
+                <LineChart fx:id="lineChart3">
                   <xAxis>
                     <CategoryAxis side="BOTTOM" />
                   </xAxis>
@@ -42,8 +43,22 @@
                 </LineChart>
                 <HBox prefHeight="100.0" prefWidth="200.0">
                   <children>
-                    <Button fx:id="button1" mnemonicParsing="false" onAction="#button1click" text="Wyświetl" />
-                    <Button fx:id="button2" mnemonicParsing="false" onAction="#button2click" text="Czyść" />
+                    <Button fx:id="button1" mnemonicParsing="false" onAction="#button1click" text="Wyświetl">
+                      <HBox.margin>
+                        <Insets bottom="10.0" left="25.0" right="10.0" />
+                      </HBox.margin>
+                    </Button>
+                    <Button fx:id="button2" mnemonicParsing="false" onAction="#button2click" text="Czyść">
+                      <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" />
+                      </HBox.margin>
+                    </Button>
+                    <CheckBox fx:id="checkBox1" mnemonicParsing="false" onAction="#checkBox1Clicked" text="Czujnik 1">
+                      <HBox.margin>
+                        <Insets left="10.0" right="10.0" fx:id="x1" />
+                      </HBox.margin>
+                    </CheckBox>
+                    <CheckBox fx:id="checkBox2" mnemonicParsing="false" onAction="#checkBox2Clicked" text="Czujnik 2" HBox.margin="$x1" />
                   </children>
                 </HBox>
               </children>
