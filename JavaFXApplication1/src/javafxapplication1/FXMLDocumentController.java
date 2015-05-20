@@ -21,6 +21,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javax.swing.JOptionPane;
 
@@ -30,14 +31,122 @@ import javax.swing.JOptionPane;
  */
 public class FXMLDocumentController implements Initializable {
 
+    XYChart.Series series1, series2, series3, series4, series5, series6;
     int counter = 0;
     @FXML
-//    public PieChart piechart;
     public LineChart<String, Integer> lineChart1;
+
+    @FXML
+    public LineChart<String, Integer> lineChart2;
+
+    @FXML
+    public LineChart<String, Integer> lineChart3;
+
+    @FXML
+    CheckBox checkBox1;
+
+    @FXML
+    CheckBox checkBox2;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        lineChart2.setAnimated(false);
 
+        series1 = new XYChart.Series();
+        series2 = new XYChart.Series();
+        series3 = new XYChart.Series();
+
+        series1.setName("Michał");
+
+        series1.getData().add(new XYChart.Data("Jan", 23));
+        series1.getData().add(new XYChart.Data("Feb", 14));
+        series1.getData().add(new XYChart.Data("Mar", 15));
+        series1.getData().add(new XYChart.Data("Apr", 24));
+        series1.getData().add(new XYChart.Data("May", 34));
+        series1.getData().add(new XYChart.Data("Jun", 36));
+        series1.getData().add(new XYChart.Data("Jul", 22));
+        series1.getData().add(new XYChart.Data("Aug", 45));
+        series1.getData().add(new XYChart.Data("Sep", 43));
+        series1.getData().add(new XYChart.Data("Oct", 17));
+        series1.getData().add(new XYChart.Data("Nov", 29));
+        series1.getData().add(new XYChart.Data("Dec", 25));
+
+        series2.setName("Leszek");
+        series2.getData().add(new XYChart.Data("Jan", 33));
+        series2.getData().add(new XYChart.Data("Feb", 34));
+        series2.getData().add(new XYChart.Data("Mar", 25));
+        series2.getData().add(new XYChart.Data("Apr", 44));
+        series2.getData().add(new XYChart.Data("May", 39));
+        series2.getData().add(new XYChart.Data("Jun", 16));
+        series2.getData().add(new XYChart.Data("Jul", 55));
+        series2.getData().add(new XYChart.Data("Aug", 54));
+        series2.getData().add(new XYChart.Data("Sep", 48));
+        series2.getData().add(new XYChart.Data("Oct", 27));
+        series2.getData().add(new XYChart.Data("Nov", 37));
+        series2.getData().add(new XYChart.Data("Dec", 29));
+
+        series3.setName("Krzyś");
+        series3.getData().add(new XYChart.Data("Jan", 44));
+        series3.getData().add(new XYChart.Data("Feb", 35));
+        series3.getData().add(new XYChart.Data("Mar", 36));
+        series3.getData().add(new XYChart.Data("Apr", 33));
+        series3.getData().add(new XYChart.Data("May", 31));
+        series3.getData().add(new XYChart.Data("Jun", 26));
+        series3.getData().add(new XYChart.Data("Jul", 22));
+        series3.getData().add(new XYChart.Data("Aug", 25));
+        series3.getData().add(new XYChart.Data("Sep", 43));
+        series3.getData().add(new XYChart.Data("Oct", 44));
+        series3.getData().add(new XYChart.Data("Nov", 45));
+        series3.getData().add(new XYChart.Data("Dec", 44));
+        
+        series4 = new XYChart.Series();
+        series5 = new XYChart.Series();
+        series6 = new XYChart.Series();
+
+        series4.setName("Alicja");
+
+        series4.getData().add(new XYChart.Data("Jan", 20));
+        series4.getData().add(new XYChart.Data("Feb", 24));
+        series4.getData().add(new XYChart.Data("Mar", 25));
+        series4.getData().add(new XYChart.Data("Apr", 14));
+        series4.getData().add(new XYChart.Data("May", 24));
+        series4.getData().add(new XYChart.Data("Jun", 26));
+        series4.getData().add(new XYChart.Data("Jul", 32));
+        series4.getData().add(new XYChart.Data("Aug", 35));
+        series4.getData().add(new XYChart.Data("Sep", 23));
+        series4.getData().add(new XYChart.Data("Oct", 57));
+        series4.getData().add(new XYChart.Data("Nov", 19));
+        series4.getData().add(new XYChart.Data("Dec", 45));
+
+        series5.setName("Basia");
+        series5.getData().add(new XYChart.Data("Jan", 11));
+        series5.getData().add(new XYChart.Data("Feb", 23));
+        series5.getData().add(new XYChart.Data("Mar", 44));
+        series5.getData().add(new XYChart.Data("Apr", 12));
+        series5.getData().add(new XYChart.Data("May", 55));
+        series5.getData().add(new XYChart.Data("Jun", 12));
+        series5.getData().add(new XYChart.Data("Jul", 15));
+        series5.getData().add(new XYChart.Data("Aug", 52));
+        series5.getData().add(new XYChart.Data("Sep", 11));
+        series5.getData().add(new XYChart.Data("Oct", 55));
+        series5.getData().add(new XYChart.Data("Nov", 12));
+        series5.getData().add(new XYChart.Data("Dec", 42));
+
+        series6.setName("Kasia");
+        series6.getData().add(new XYChart.Data("Jan", 22));
+        series6.getData().add(new XYChart.Data("Feb", 33));
+        series6.getData().add(new XYChart.Data("Mar", 13));
+        series6.getData().add(new XYChart.Data("Apr", 14));
+        series6.getData().add(new XYChart.Data("May", 15));
+        series6.getData().add(new XYChart.Data("Jun", 65));
+        series6.getData().add(new XYChart.Data("Jul", 14));
+        series6.getData().add(new XYChart.Data("Aug", 22));
+        series6.getData().add(new XYChart.Data("Sep", 14));
+        series6.getData().add(new XYChart.Data("Oct", 11));
+        series6.getData().add(new XYChart.Data("Nov", 12));
+        series6.getData().add(new XYChart.Data("Dec", 41));
+        
         dbConnection connect = new dbConnection();
         try {
             connect.connectToAndQueryDatabase();
@@ -66,54 +175,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     protected void button1click(ActionEvent event) {
         if (counter < 1) {
-            lineChart1.setTitle("Wahania kursów akcji, 2015");
+//            lineChart1.setTitle("Wahania kursów akcji, 2015");
 
-            XYChart.Series series1 = new XYChart.Series();
-            XYChart.Series series2 = new XYChart.Series();
-            XYChart.Series series3 = new XYChart.Series();
-
-            series1.setName("Michał");
-
-            series1.getData().add(new XYChart.Data("Jan", 23));
-            series1.getData().add(new XYChart.Data("Feb", 14));
-            series1.getData().add(new XYChart.Data("Mar", 15));
-            series1.getData().add(new XYChart.Data("Apr", 24));
-            series1.getData().add(new XYChart.Data("May", 34));
-            series1.getData().add(new XYChart.Data("Jun", 36));
-            series1.getData().add(new XYChart.Data("Jul", 22));
-            series1.getData().add(new XYChart.Data("Aug", 45));
-            series1.getData().add(new XYChart.Data("Sep", 43));
-            series1.getData().add(new XYChart.Data("Oct", 17));
-            series1.getData().add(new XYChart.Data("Nov", 29));
-            series1.getData().add(new XYChart.Data("Dec", 25));
-
-            series2.setName("Leszek");
-            series2.getData().add(new XYChart.Data("Jan", 33));
-            series2.getData().add(new XYChart.Data("Feb", 34));
-            series2.getData().add(new XYChart.Data("Mar", 25));
-            series2.getData().add(new XYChart.Data("Apr", 44));
-            series2.getData().add(new XYChart.Data("May", 39));
-            series2.getData().add(new XYChart.Data("Jun", 16));
-            series2.getData().add(new XYChart.Data("Jul", 55));
-            series2.getData().add(new XYChart.Data("Aug", 54));
-            series2.getData().add(new XYChart.Data("Sep", 48));
-            series2.getData().add(new XYChart.Data("Oct", 27));
-            series2.getData().add(new XYChart.Data("Nov", 37));
-            series2.getData().add(new XYChart.Data("Dec", 29));
-
-            series3.setName("Krzyś");
-            series3.getData().add(new XYChart.Data("Jan", 44));
-            series3.getData().add(new XYChart.Data("Feb", 35));
-            series3.getData().add(new XYChart.Data("Mar", 36));
-            series3.getData().add(new XYChart.Data("Apr", 33));
-            series3.getData().add(new XYChart.Data("May", 31));
-            series3.getData().add(new XYChart.Data("Jun", 26));
-            series3.getData().add(new XYChart.Data("Jul", 22));
-            series3.getData().add(new XYChart.Data("Aug", 25));
-            series3.getData().add(new XYChart.Data("Sep", 43));
-            series3.getData().add(new XYChart.Data("Oct", 44));
-            series3.getData().add(new XYChart.Data("Nov", 45));
-            series3.getData().add(new XYChart.Data("Dec", 44));
             lineChart1.getData().addAll(series1, series2, series3);
             counter++;
         }
@@ -122,7 +185,37 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     protected void button2click(ActionEvent event) {
-        lineChart1.getData().clear();
-        counter--;
+        if (counter > 0) {
+            lineChart1.getData().clear();
+            counter--;
+        }
+
+    }
+
+    @FXML
+    private void checkBox1Clicked(ActionEvent e) {
+        if (checkBox1.isSelected()) {
+            lineChart2.getData().addAll(series1, series2, series3);
+        } else {
+            lineChart2.getData().clear();
+            if (checkBox2.isSelected()) {
+                checkBox2Clicked(e);
+            }
+        }
+
+    }
+
+    @FXML
+    private void checkBox2Clicked(ActionEvent e) {
+        
+        if (checkBox2.isSelected()) {
+            lineChart2.getData().addAll(series4, series5, series6);
+        } else {
+            lineChart2.getData().clear();
+            if (checkBox1.isSelected()) {
+                checkBox1Clicked(e);
+            }
+        }
+
     }
 }
