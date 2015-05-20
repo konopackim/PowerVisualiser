@@ -25,8 +25,7 @@ public class dbConnection {
     public void connectToAndQueryDatabase() throws SQLException, ClassNotFoundException, IOException {
 
         Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/leszkiimichaly",
-                "leszkiimichaly", "leszkiimichaly");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/data_history", "usr1", "pass");
 
 //        for (int i = 0; i < load.result.length; i++) {
 //            Statement stmt = con.createStatement();
@@ -34,7 +33,7 @@ public class dbConnection {
 //            int lm = stmt.executeUpdate(update);
 //        }
         Statement stmt = con.createStatement();
-        ResultSet lm = stmt.executeQuery("SELECT date FROM odczytyTestowe");
+        ResultSet lm = stmt.executeQuery("SELECT * FROM data_history");
         while (lm.next()) {
             System.out.println(lm.getString("date"));
         }
