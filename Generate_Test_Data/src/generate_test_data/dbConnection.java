@@ -28,7 +28,7 @@ public class dbConnection {
     public void connectToDatabase() throws SQLException, ClassNotFoundException, IOException {
 
         Class.forName("com.mysql.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/data_history", "usr1", "pass");
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/data_history", "root", "");
 
 //        for (int i = 0; i < load.result.length; i++) {
 //            Statement stmt = con.createStatement();
