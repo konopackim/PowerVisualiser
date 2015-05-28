@@ -56,7 +56,7 @@ public class Generate_Test_Data {
             values[9] = 20 + generator.nextInt() * 10 - 5;
             values[10] = 30 + generator.nextInt() * 10 - 5;
 
-            values = null;
+
             
             try {
                 connect.insertDatabase(dt.plusMinutes(m).toString(),
@@ -69,6 +69,7 @@ public class Generate_Test_Data {
             if (m % 1000 == 0) {
                 System.out.println(dt.plusMinutes(m));
             }
+            values = null;
         }
 
 //        dt+4;
