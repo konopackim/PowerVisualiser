@@ -24,11 +24,11 @@ public class dbConnection {
     public ArrayList<String> druga = new ArrayList<String>();
     private Connection con;
     Statement stmt;
-    
+
     public void connectToDatabase() throws SQLException, ClassNotFoundException, IOException {
 
         Class.forName("com.mysql.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/data_history", "root", "");
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/data_history", "usr1", "pass");
 
 //        for (int i = 0; i < load.result.length; i++) {
 //            Statement stmt = con.createStatement();
@@ -42,13 +42,13 @@ public class dbConnection {
 //(date, serial, systemVoltage, L-NVoltagePhase1, L-NVoltagePhase2, L-NVoltagePhase3, systemCurrent, phase1current, phase2current, phase3current, frequency)
 //        }
     }
-    
+
     public void insertDatabase(String date, String serialId, int[] values) throws SQLException, ClassNotFoundException, IOException {
-        
+
         String query = "insert into data_history values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = con.prepareStatement(query);
-        stmt.setString (1, date);
-        stmt.setString (2,serialId);
+        stmt.setString(1, date);
+        stmt.setString(2, serialId);
         stmt.setInt(3, values[0]);
         stmt.setInt(4, values[1]);
         stmt.setInt(5, values[2]);
@@ -62,13 +62,18 @@ public class dbConnection {
         stmt.setInt(13, values[10]);
         stmt.execute();
     }
-    
+
     public void selectFromDatabase() throws SQLException, ClassNotFoundException, IOException {
-        
+
         stmt = con.createStatement();
         ResultSet lm = stmt.executeQuery("SELECT * FROM data_history");
         while (lm.next()) {
             System.out.printf("%s %s\n", lm.getString("date"), lm.getString("device_id"));
         }
+    }
+
+    public void closeConnection() throws SQLException, ClassNotFoundException, IOException {
+
+        con.close();
     }
 }

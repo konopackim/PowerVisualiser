@@ -21,7 +21,7 @@ public class Generate_Test_Data {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException {
         // TODO code application logic here
 
 //        int m;
@@ -30,6 +30,8 @@ public class Generate_Test_Data {
         int[] values;
         int val = 230;
         Random generator = new Random();
+        values = new int[11];
+
         try {
             connect.connectToDatabase();
             connect.selectFromDatabase();
@@ -42,8 +44,7 @@ public class Generate_Test_Data {
 //            dt_temp = dt.plusMinutes(m);
 //                System.out.println(dt_temp);
 //                val = 230 + generator.nextInt()*10-5;
-            values = new int[11];
-            
+
             values[0] = 250 + generator.nextInt() * 10 - 5;
             values[1] = 100 + generator.nextInt() * 10 - 5;
             values[2] = 200 + generator.nextInt() * 10 - 5;
@@ -56,8 +57,6 @@ public class Generate_Test_Data {
             values[9] = 20 + generator.nextInt() * 10 - 5;
             values[10] = 30 + generator.nextInt() * 10 - 5;
 
-
-            
             try {
                 connect.insertDatabase(dt.plusMinutes(m).toString(),
                         "SERIAL1",
@@ -68,8 +67,20 @@ public class Generate_Test_Data {
             }
             if (m % 1000 == 0) {
                 System.out.println(dt.plusMinutes(m));
+                try {
+                    connect.closeConnection();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Generate_Test_Data.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(Generate_Test_Data.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    connect.connectToDatabase();
+                } catch (SQLException | ClassNotFoundException | IOException ex) {
+                    Logger.getLogger("mylogger").log(Level.SEVERE, null, ex);
+                }
             }
-            values = null;
+
         }
 
 //        dt+4;
