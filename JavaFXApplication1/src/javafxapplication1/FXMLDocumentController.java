@@ -9,6 +9,7 @@ import java.awt.Desktop.Action;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,6 +32,9 @@ import javax.swing.JOptionPane;
  */
 public class FXMLDocumentController implements Initializable {
 
+    //Connection to the database
+    dbConnection connect = new dbConnection();
+
     XYChart.Series series1, series2, series3, series4, series5, series6;
     int counter = 0;
     @FXML
@@ -50,6 +54,37 @@ public class FXMLDocumentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        try {
+            connect.connectToDatabase();
+        } catch (SQLException | ClassNotFoundException | IOException ex) {
+            Logger.getLogger("mylogger").log(Level.SEVERE, null, ex);
+        }
+
+        LocalDateTime dt1 = LocalDateTime.of(2015, 1, 22, 8, 0);
+        LocalDateTime dt2 = LocalDateTime.of(2015, 2, 2, 8, 0);
+        try {
+            connect.selectFromDatabase(dt1.toString(),dt2.toString(),
+                    "SERIAL1");
+
+        } catch (SQLException | ClassNotFoundException | IOException ex) {
+            Logger.getLogger("mylogger").log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            connect.closeConnection();
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+//      Odczyt przykładowych danych -> ll_voltage_12
+        for(int i=0; i < connect.ll_voltage_12.size(); i++){
+            System.out.println(connect.ll_voltage_12.get(i));
+        }
         
         lineChart2.setAnimated(false);
 
@@ -99,7 +134,7 @@ public class FXMLDocumentController implements Initializable {
         series3.getData().add(new XYChart.Data("Oct", 44));
         series3.getData().add(new XYChart.Data("Nov", 45));
         series3.getData().add(new XYChart.Data("Dec", 44));
-        
+
         series4 = new XYChart.Series();
         series5 = new XYChart.Series();
         series6 = new XYChart.Series();
@@ -146,19 +181,7 @@ public class FXMLDocumentController implements Initializable {
         series6.getData().add(new XYChart.Data("Oct", 11));
         series6.getData().add(new XYChart.Data("Nov", 12));
         series6.getData().add(new XYChart.Data("Dec", 41));
-        
-        dbConnection connect = new dbConnection();
-        try {
-            connect.connectToAndQueryDatabase();
-        } catch (SQLException | ClassNotFoundException | IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        for (String pierwsza : connect.pierwsza) {
-            System.out.println(pierwsza);
-        }
-        for (String druga : connect.druga) {
-            System.out.println(druga);
-        }
+
 //        ObservableList<PieChart.Data> pieChartData
 //                = FXCollections.observableArrayList(
 //                        new PieChart.Data("Michał B", 60),
@@ -168,7 +191,6 @@ public class FXMLDocumentController implements Initializable {
 //                );
 //
 //        piechart.setData(pieChartData);
-
         //lineChart.getData().add(series1);
     }
 
@@ -207,7 +229,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void checkBox2Clicked(ActionEvent e) {
-        
+
         if (checkBox2.isSelected()) {
             lineChart2.getData().addAll(series4, series5, series6);
         } else {

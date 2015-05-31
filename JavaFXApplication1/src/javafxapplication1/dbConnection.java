@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -18,30 +19,83 @@ import java.util.ArrayList;
  * @author krzysztofzabinski
  */
 public class dbConnection {
+//    CREATE TABLE `data_history`.`data_history` (
+//  `date` DATETIME NOT NULL DEFAULT 0,
+//  `device_id` VARCHAR(45) NOT NULL DEFAULT 0,
+//  `sys_voltage` INT NULL,
+//  `ln_voltage_phase_1` INT NULL,
+//  `ln_voltage_phase_2` INT NULL,
+//  `ln_voltage_phase_3` INT NULL,
+//  `ll_voltage_12` INT NULL,
+//  `ll_voltage_23` INT NULL,
+//  `ll_voltage_31` INT NULL,
+//  `sys_current` INT NULL,
+//  `phase_1_current` INT NULL,
+//  `phase_2_current` INT NULL,
+//  `phase_3_current` INT NULL,
+//  PRIMARY KEY (`date`, `device_id`))
+//  ENGINE = InnoDB;
 
-    public ArrayList<String> pierwsza = new ArrayList<String>();
-    public ArrayList<String> druga = new ArrayList<String>();
+    public ArrayList<Integer> sys_voltage = new ArrayList<>();
+    public ArrayList<Integer> ln_voltage_phase_1 = new ArrayList<>();
+    public ArrayList<Integer> ln_voltage_phase_2 = new ArrayList<>();
+    public ArrayList<Integer> ln_voltage_phase_3 = new ArrayList<>();
+    public ArrayList<Integer> ll_voltage_12 = new ArrayList<>();
+    public ArrayList<Integer> ll_voltage_23 = new ArrayList<>();
+    public ArrayList<Integer> ll_voltage_31 = new ArrayList<>();
+    public ArrayList<Integer> sys_current = new ArrayList<>();
+    public ArrayList<Integer> phase_1_current = new ArrayList<>();
+    public ArrayList<Integer> phase_2_current = new ArrayList<>();
+    public ArrayList<Integer> phase_3_current = new ArrayList<>();
 
-    public void connectToAndQueryDatabase() throws SQLException, ClassNotFoundException, IOException {
+    private Connection con;
+    Statement stmt;
+
+    public void connectToDatabase() throws SQLException, ClassNotFoundException, IOException {
 
         Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/data_history", "usr1", "pass");
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/data_history", "usr1", "pass");
 
-//        for (int i = 0; i < load.result.length; i++) {
-//            Statement stmt = con.createStatement();
-//            String update = "insert into odczytyTestowe values('2015-07-01 09:12:00', 'SERIAL2', 231, 233, 222, 223, 1, 12, 13, 14, 50)";
-//            int lm = stmt.executeUpdate(update);
-//        }
-        Statement stmt = con.createStatement();
-        ResultSet lm = stmt.executeQuery("SELECT * FROM data_history");
+        stmt = con.createStatement();
+//        ResultSet lm = stmt.executeQuery("SELECT * FROM data_history");
+
+    }
+
+    public void selectFromDatabase(String date1, String date2, String device_id) throws SQLException, ClassNotFoundException, IOException {
+
+        sys_voltage.clear();
+        ln_voltage_phase_1.clear();
+        ln_voltage_phase_2.clear();
+        ln_voltage_phase_3.clear();
+        ll_voltage_12.clear();
+        ll_voltage_23.clear();
+        ll_voltage_31.clear();
+        sys_current.clear();
+        phase_1_current.clear();
+        phase_2_current.clear();
+        phase_3_current.clear();
+
+        stmt = con.createStatement();
+        ResultSet lm = stmt.executeQuery("SELECT * FROM data_history WHERE date BETWEEN'" + date1 + "' AND '" + date2 + "' AND device_id='" + device_id + "'");
         while (lm.next()) {
-            System.out.println(lm.getString("date"));
+//            System.out.printf("%s %s\n", lm.getString("date"), lm.getString("device_id"));
+
+            sys_voltage.add(lm.getInt("sys_voltage"));
+            ln_voltage_phase_1.add(lm.getInt("ln_voltage_phase_1"));
+            ln_voltage_phase_2.add(lm.getInt("ln_voltage_phase_2"));
+            ln_voltage_phase_3.add(lm.getInt("ln_voltage_phase_3"));
+            ll_voltage_12.add(lm.getInt("ll_voltage_12"));
+            ll_voltage_23.add(lm.getInt("ll_voltage_23"));
+            ll_voltage_31.add(lm.getInt("ll_voltage_31"));
+            sys_current.add(lm.getInt("sys_current"));
+            phase_1_current.add(lm.getInt("phase_1_current"));
+            phase_2_current.add(lm.getInt("phase_2_current"));
+            phase_3_current.add(lm.getInt("phase_3_current"));
         }
-//        while (lm.next()) {
-//
-//            pierwsza.add(lm.getString("pierwsza"));
-//            druga.add(lm.getString("druga"));
-//(date, serial, systemVoltage, L-NVoltagePhase1, L-NVoltagePhase2, L-NVoltagePhase3, systemCurrent, phase1current, phase2current, phase3current, frequency)
-//        }
+    }
+
+    public void closeConnection() throws SQLException, ClassNotFoundException, IOException {
+
+        con.close();
     }
 }
