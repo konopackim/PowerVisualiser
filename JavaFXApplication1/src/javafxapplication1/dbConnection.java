@@ -36,6 +36,7 @@ public class dbConnection {
 //  PRIMARY KEY (`date`, `device_id`))
 //  ENGINE = InnoDB;
 
+    public ArrayList<String> date = new ArrayList<>();
     public ArrayList<Integer> sys_voltage = new ArrayList<>();
     public ArrayList<Integer> ln_voltage_phase_1 = new ArrayList<>();
     public ArrayList<Integer> ln_voltage_phase_2 = new ArrayList<>();
@@ -80,6 +81,7 @@ public class dbConnection {
         while (lm.next()) {
 //            System.out.printf("%s %s\n", lm.getString("date"), lm.getString("device_id"));
 
+            date.add(lm.getString("date"));
             sys_voltage.add(lm.getInt("sys_voltage"));
             ln_voltage_phase_1.add(lm.getInt("ln_voltage_phase_1"));
             ln_voltage_phase_2.add(lm.getInt("ln_voltage_phase_2"));

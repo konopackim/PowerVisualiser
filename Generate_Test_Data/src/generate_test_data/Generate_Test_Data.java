@@ -38,9 +38,9 @@ public class Generate_Test_Data {
         } catch (SQLException | ClassNotFoundException | IOException ex) {
             Logger.getLogger("mylogger").log(Level.SEVERE, null, ex);
         }
-        LocalDateTime dt = LocalDateTime.of(2015, 1, 1, 8, 0);
+        LocalDateTime dt = LocalDateTime.of(2015, 3, 1, 8, 0);
 //            connect.insertDatabase(null, null, );
-        for (int m = 0; dt.plusMinutes(m).isBefore(LocalDateTime.of(2015, 3, 31, 0, 0)); m = m + 1) {
+        for (int m = 0; dt.plusMinutes(m).isBefore(LocalDateTime.now()); m = m + 1) {
 //            dt_temp = dt.plusMinutes(m);
 //                System.out.println(dt_temp);
 //                val = 230 + generator.nextInt()*10-5;

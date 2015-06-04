@@ -23,6 +23,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javax.swing.JOptionPane;
 
@@ -31,9 +32,6 @@ import javax.swing.JOptionPane;
  * @author Krzysztof
  */
 public class FXMLDocumentController implements Initializable {
-
-    //Connection to the database
-    dbConnection connect = new dbConnection();
 
     XYChart.Series series1, series2, series3, series4, series5, series6;
     int counter = 0;
@@ -52,40 +50,46 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     CheckBox checkBox2;
 
+    @FXML
+    ComboBox chooseInterval;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        try {
-            connect.connectToDatabase();
-        } catch (SQLException | ClassNotFoundException | IOException ex) {
-            Logger.getLogger("mylogger").log(Level.SEVERE, null, ex);
-        }
+        chooseInterval.getItems().addAll(
+                "24 godziny",
+                "7 dni",
+                "Ostatni miesiąc",
+                "Ostatnie 3 miesiące"
+        );
+        lineChart3.setAnimated(false);
 
-        LocalDateTime dt1 = LocalDateTime.of(2015, 1, 22, 8, 0);
-        LocalDateTime dt2 = LocalDateTime.of(2015, 2, 2, 8, 0);
-        try {
-            connect.selectFromDatabase(dt1.toString(),dt2.toString(),
-                    "SERIAL1");
-
-        } catch (SQLException | ClassNotFoundException | IOException ex) {
-            Logger.getLogger("mylogger").log(Level.SEVERE, null, ex);
-        }
-
-        try {
-            connect.closeConnection();
-        } catch (SQLException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+//        try {
+//            connect.connectToDatabase();
+//        } catch (SQLException | ClassNotFoundException | IOException ex) {
+//            Logger.getLogger("mylogger").log(Level.SEVERE, null, ex);
+//        }
+//
+//        LocalDateTime dt1 = LocalDateTime.of(2015, 1, 22, 8, 0);
+//        LocalDateTime dt2 = LocalDateTime.of(2015, 2, 2, 8, 0);
+//        try {
+//            connect.selectFromDatabase(dt1.toString(), dt2.toString(),
+//                    "SERIAL1");
+//
+//        } catch (SQLException | ClassNotFoundException | IOException ex) {
+//            Logger.getLogger("mylogger").log(Level.SEVERE, null, ex);
+//        }
+//
+//        try {
+//            connect.closeConnection();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IOException ex) {
+//            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 //      Odczyt przykładowych danych -> ll_voltage_12
-        for(int i=0; i < connect.ll_voltage_12.size(); i++){
-            System.out.println(connect.ll_voltage_12.get(i));
-        }
-        
         lineChart2.setAnimated(false);
 
         series1 = new XYChart.Series();
@@ -239,5 +243,145 @@ public class FXMLDocumentController implements Initializable {
             }
         }
 
+    }
+
+    @FXML
+    private void intervalChosen(ActionEvent e) {
+        if (chooseInterval.getValue().toString().equals("24 godziny")) {
+
+            XYChart.Series series24h = new XYChart.Series();
+            //Connection to the database
+            dbConnection connect = new dbConnection();
+            System.out.println("24 godziny");
+            LocalDateTime dt1 = LocalDateTime.now().minusHours(24);
+            LocalDateTime dt2 = LocalDateTime.now();
+            try {
+                connect.connectToDatabase();
+            } catch (SQLException | ClassNotFoundException | IOException ex) {
+                Logger.getLogger("mylogger").log(Level.SEVERE, null, ex);
+            }
+            try {
+                connect.selectFromDatabase(dt1.toString(), dt2.toString(),
+                        "SERIAL1");
+
+            } catch (SQLException | ClassNotFoundException | IOException ex) {
+                Logger.getLogger("mylogger").log(Level.SEVERE, null, ex);
+            }
+            try {
+                connect.closeConnection();
+            } catch (SQLException | ClassNotFoundException | IOException ex) {
+                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            series24h.setName("SERIAL1");
+            for (int i = 0; i < connect.date.size(); i++) {
+                if (i % 100 == 0) {
+                    series24h.getData().add(new XYChart.Data(connect.date.get(i), connect.sys_voltage.get(i)));
+//                    System.out.println(connect.sys_voltage.get(i));
+                }
+            }
+            lineChart3.getData().clear();
+            lineChart3.getData().addAll(series24h);
+        } else if (chooseInterval.getValue().toString().equals("7 dni")) {
+            XYChart.Series series7d = new XYChart.Series();
+            //Connection to the database
+            dbConnection connect = new dbConnection();
+            System.out.println("7 dni");
+            LocalDateTime dt1 = LocalDateTime.now().minusDays(7);
+            LocalDateTime dt2 = LocalDateTime.now();
+            try {
+                connect.connectToDatabase();
+            } catch (SQLException | ClassNotFoundException | IOException ex) {
+                Logger.getLogger("mylogger").log(Level.SEVERE, null, ex);
+            }
+            try {
+                connect.selectFromDatabase(dt1.toString(), dt2.toString(),
+                        "SERIAL1");
+
+            } catch (SQLException | ClassNotFoundException | IOException ex) {
+                Logger.getLogger("mylogger").log(Level.SEVERE, null, ex);
+            }
+            try {
+                connect.closeConnection();
+            } catch (SQLException | ClassNotFoundException | IOException ex) {
+                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            series7d.setName("SERIAL1");
+            for (int i = 0; i < connect.date.size(); i++) {
+                if (i % 700 == 0) {
+                    series7d.getData().add(new XYChart.Data(connect.date.get(i), connect.sys_voltage.get(i)));
+//                    System.out.println(connect.sys_voltage.get(i));
+                }
+            }
+            lineChart3.getData().clear();
+            lineChart3.getData().addAll(series7d);
+        } else if (chooseInterval.getValue().toString().equals("Ostatni miesiąc")) {
+            XYChart.Series series1m = new XYChart.Series();
+            //Connection to the database
+            dbConnection connect = new dbConnection();
+            System.out.println("Ostatni miesiąc");
+            LocalDateTime dt1 = LocalDateTime.now().minusMonths(1);
+            LocalDateTime dt2 = LocalDateTime.now();
+            try {
+                connect.connectToDatabase();
+            } catch (SQLException | ClassNotFoundException | IOException ex) {
+                Logger.getLogger("mylogger").log(Level.SEVERE, null, ex);
+            }
+            try {
+                connect.selectFromDatabase(dt1.toString(), dt2.toString(),
+                        "SERIAL1");
+
+            } catch (SQLException | ClassNotFoundException | IOException ex) {
+                Logger.getLogger("mylogger").log(Level.SEVERE, null, ex);
+            }
+            try {
+                connect.closeConnection();
+            } catch (SQLException | ClassNotFoundException | IOException ex) {
+                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            series1m.setName("SERIAL1");
+            for (int i = 0; i < connect.date.size(); i++) {
+                if (i % 3000 == 0) {
+                    series1m.getData().add(new XYChart.Data(connect.date.get(i), connect.sys_voltage.get(i)));
+//                    System.out.println(connect.sys_voltage.get(i));
+                }
+            }
+            lineChart3.getData().clear();
+            lineChart3.getData().addAll(series1m);
+        } else if (chooseInterval.getValue().toString().equals("Ostatnie 3 miesiące")) {
+            XYChart.Series series3m = new XYChart.Series();
+            //Connection to the database
+            dbConnection connect = new dbConnection();
+            System.out.println("Ostatnie 3 miesiące");
+            LocalDateTime dt1 = LocalDateTime.now().minusMonths(3);
+            LocalDateTime dt2 = LocalDateTime.now();
+            try {
+                connect.connectToDatabase();
+            } catch (SQLException | ClassNotFoundException | IOException ex) {
+                Logger.getLogger("mylogger").log(Level.SEVERE, null, ex);
+            }
+            try {
+                connect.selectFromDatabase(dt1.toString(), dt2.toString(),
+                        "SERIAL1");
+
+            } catch (SQLException | ClassNotFoundException | IOException ex) {
+                Logger.getLogger("mylogger").log(Level.SEVERE, null, ex);
+            }
+            try {
+                connect.closeConnection();
+            } catch (SQLException | ClassNotFoundException | IOException ex) {
+                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            series3m.setName("SERIAL1");
+            for (int i = 0; i < connect.date.size(); i++) {
+                if (i % 9000 == 0) {
+                    series3m.getData().add(new XYChart.Data(connect.date.get(i), connect.sys_voltage.get(i)));
+//                    System.out.println(connect.sys_voltage.get(i));
+                }
+            }
+            lineChart3.getData().clear();
+            lineChart3.getData().addAll(series3m);
+        }
     }
 }

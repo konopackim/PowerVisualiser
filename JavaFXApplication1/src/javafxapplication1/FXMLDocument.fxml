@@ -2,12 +2,14 @@
 
 <?import java.lang.*?>
 <?import java.util.*?>
+<?import javafx.collections.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane id="AnchorPane" cache="true" cacheHint="QUALITY" disable="false" focusTraversable="false" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-1.0" minWidth="-1.0" prefHeight="558.0000999999975" prefWidth="772.0" visible="true" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="javafxapplication1.FXMLDocumentController">
   <children>
@@ -17,6 +19,20 @@
           <content>
             <VBox prefHeight="200.0" prefWidth="100.0">
               <children>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="WYBIERZ PRZEDZIAŁ">
+                      <HBox.margin>
+                        <Insets left="25.0" top="10.0" fx:id="x2" />
+                      </HBox.margin>
+                    </Text>
+                    <ComboBox fx:id="chooseInterval" onAction="#intervalChosen" HBox.margin="$x2">
+                      <items>
+                        <FXCollections fx:factory="observableArrayList" />
+                      </items>
+                    </ComboBox>
+                  </children>
+                </HBox>
                 <LineChart fx:id="lineChart1">
                   <xAxis>
                     <CategoryAxis side="BOTTOM" />
