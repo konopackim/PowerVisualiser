@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javafxapplication1;
+package powervisualiser;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -51,10 +51,10 @@ public class dbConnection {
     private Connection con;
     Statement stmt;
 
-    public void connectToDatabase() throws SQLException, ClassNotFoundException, IOException {
+    public void connectToDatabase(String databaseAddress, String portNumber) throws SQLException, ClassNotFoundException, IOException {
 
         Class.forName("com.mysql.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/data_history", "usr1", "pass");
+        con = DriverManager.getConnection("jdbc:mysql://" + databaseAddress + ":" + portNumber + "/data_history", "usr1", "pass");
 
         stmt = con.createStatement();
 //        ResultSet lm = stmt.executeQuery("SELECT * FROM data_history");
@@ -100,3 +100,4 @@ public class dbConnection {
         con.close();
     }
 }
+
