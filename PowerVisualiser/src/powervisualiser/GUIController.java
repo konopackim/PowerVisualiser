@@ -24,6 +24,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -41,8 +43,11 @@ public class GUIController implements Initializable {
     private GridPane gridPane1, gridPane2, gridPane3, gridPane4, gridPane5;
 
     @FXML
+    private CheckBox CBvoltagePhase1, CBvoltagePhase2, CBvoltagePhase3;
+
+    @FXML
     private TextField databaseAddress, serialNumber, portNumber;
-    
+
     @FXML
     private LineChart lineChart1, lineChart2, lineChart3, lineChart4, lineChart5;
 
@@ -71,6 +76,17 @@ public class GUIController implements Initializable {
         datePicker5.setPromptText("Początkowy dzień");
         gridPane5.add(datePicker5, 0, 0);
 
+        lineChart1.setAnimated(false);
+        lineChart2.setAnimated(false);
+        lineChart3.setAnimated(false);
+        lineChart4.setAnimated(false);
+        lineChart5.setAnimated(false);
+
+        datePicker1.setEditable(false);
+        datePicker2.setEditable(false);
+        datePicker3.setEditable(false);
+        datePicker4.setEditable(false);
+        datePicker5.setEditable(false);
 //        String dbAddress = databaseAddress.getText();
 //        String serialNo = serialNumber.getText();
 //        String portNo = portNumber.getText();
@@ -79,6 +95,8 @@ public class GUIController implements Initializable {
     @FXML
     private void button1Clicked(javafx.event.ActionEvent e) {
 //        System.out.println(datePicker1.getValue());
+
+        XYChart.Series series1 = new XYChart.Series();
 
         dbConnection connect = new dbConnection();
 
@@ -103,15 +121,27 @@ public class GUIController implements Initializable {
         } catch (SQLException | ClassNotFoundException | IOException ex) {
             Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        long tmp = (long) connect.sys_voltage.size() / 50;
+        series1.setName("Napięcie systemu [V]");
+        for (int i = 0; i < connect.sys_voltage.size(); i += tmp) {
+            series1.getData().add(new XYChart.Data(connect.date.get(i), connect.sys_voltage.get(i) / 10000000));
+//                    System.out.println(connect.sys_voltage.get(i));
+        }
+        lineChart1.getData().clear();
+        lineChart1.getData().addAll(series1);
 
     }
 
     @FXML
     private void button2Clicked(javafx.event.ActionEvent e) {
 //        System.out.println(datePicker2.getValue());
-        
+
+        XYChart.Series series21 = new XYChart.Series();
+        XYChart.Series series22 = new XYChart.Series();
+        XYChart.Series series23 = new XYChart.Series();
+
         dbConnection connect = new dbConnection();
-        
+
         LocalDateTime startDate = LocalDateTime.of(datePicker2.getValue(), LocalTime.now());
         LocalDateTime endDate = LocalDateTime.now();
 
@@ -133,15 +163,48 @@ public class GUIController implements Initializable {
         } catch (SQLException | ClassNotFoundException | IOException ex) {
             Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        series21.setName("Napięcie fazy 1 [V]");
+        series22.setName("Napięcie fazy 2 [V]");
+        series23.setName("Napięcie fazy 3 [V]");
 
+        if (CBvoltagePhase1.isSelected()) {
+            long tmp = (long) connect.ln_voltage_phase_1.size() / 50;
+            for (int i = 0; i < connect.ln_voltage_phase_1.size(); i += tmp) {
+                series21.getData().add(new XYChart.Data(connect.date.get(i), connect.ln_voltage_phase_1.get(i) / 10000000));
+//                    System.out.println(connect.sys_voltage.get(i));
+            }
+            lineChart2.getData().clear();
+            lineChart2.getData().addAll(series21, series22, series23);
+        }
+        
+        if (CBvoltagePhase2.isSelected()) {
+            long tmp = (long) connect.ln_voltage_phase_2.size() / 50;
+            for (int i = 0; i < connect.ln_voltage_phase_2.size(); i += tmp) {
+                series22.getData().add(new XYChart.Data(connect.date.get(i), connect.ln_voltage_phase_2.get(i) / 10000000));
+//                    System.out.println(connect.sys_voltage.get(i));
+            }
+            lineChart2.getData().clear();
+            lineChart2.getData().addAll(series21, series22, series23);
+        }
+        
+        if (CBvoltagePhase3.isSelected()) {
+            long tmp = (long) connect.ln_voltage_phase_3.size() / 50;
+            for (int i = 0; i < connect.ln_voltage_phase_3.size(); i += tmp) {
+                series23.getData().add(new XYChart.Data(connect.date.get(i), connect.ln_voltage_phase_3.get(i) / 10000000));
+//                    System.out.println(connect.sys_voltage.get(i));
+            }
+            lineChart2.getData().clear();
+            lineChart2.getData().addAll(series21, series22, series23);
+        }
     }
 
     @FXML
     private void button3Clicked(javafx.event.ActionEvent e) {
 //        System.out.println(datePicker3.getValue());
-        
+
         dbConnection connect = new dbConnection();
-        
+
         LocalDateTime startDate = LocalDateTime.of(datePicker3.getValue(), LocalTime.now());
         LocalDateTime endDate = LocalDateTime.now();
 
@@ -169,9 +232,10 @@ public class GUIController implements Initializable {
     @FXML
     private void button4Clicked(javafx.event.ActionEvent e) {
 //        System.out.println(datePicker4.getValue());
-        
+
+        XYChart.Series series4 = new XYChart.Series();
         dbConnection connect = new dbConnection();
-        
+
         LocalDateTime startDate = LocalDateTime.of(datePicker4.getValue(), LocalTime.now());
         LocalDateTime endDate = LocalDateTime.now();
 
@@ -193,15 +257,23 @@ public class GUIController implements Initializable {
         } catch (SQLException | ClassNotFoundException | IOException ex) {
             Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        long tmp = (long) connect.sys_current.size() / 50;
+        series4.setName("Natężenie systemu [mA]");
+        for (int i = 0; i < connect.sys_current.size(); i += tmp) {
+            series4.getData().add(new XYChart.Data(connect.date.get(i), connect.sys_current.get(i) / 10000000));
+//                    System.out.println(connect.sys_voltage.get(i));
+        }
 
+        lineChart4.getData().clear();
+        lineChart4.getData().addAll(series4);
     }
 
     @FXML
     private void button5Clicked(javafx.event.ActionEvent e) {
 //        System.out.println(datePicker5.getValue());
-        
+
         dbConnection connect = new dbConnection();
-        
+
         LocalDateTime startDate = LocalDateTime.of(datePicker5.getValue(), LocalTime.now());
         LocalDateTime endDate = LocalDateTime.now();
 

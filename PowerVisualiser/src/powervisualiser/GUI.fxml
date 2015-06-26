@@ -49,7 +49,7 @@
           <content>
             <GridPane fx:id="gridPane1" alignment="CENTER" padding="$x1">
               <children>
-                <LineChart id="LineChart" fx:id="lineChart1" prefHeight="302.0" prefWidth="700.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <LineChart fx:id="lineChart1" prefHeight="302.0" prefWidth="700.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
                   <xAxis>
                     <CategoryAxis side="BOTTOM" />
                   </xAxis>
@@ -77,7 +77,7 @@
           <content>
             <GridPane id="gridPane1" fx:id="gridPane2" alignment="CENTER">
               <children>
-                <LineChart id="LineChart" fx:id="lineChart2" prefHeight="302.0" prefWidth="700.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <LineChart fx:id="lineChart2" prefHeight="302.0" prefWidth="700.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
                   <xAxis>
                     <CategoryAxis side="BOTTOM" />
                   </xAxis>
@@ -86,13 +86,25 @@
                   </yAxis>
                 </LineChart>
                 <Button id="button1" fx:id="button2" mnemonicParsing="false" onAction="#button2Clicked" text="Zastosuj" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+                <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                  <children>
+                    <CheckBox fx:id="CBvoltagePhase1" mnemonicParsing="false" text="faza 1">
+                      <HBox.margin>
+                        <Insets left="10.0" top="10.0" fx:id="x2" />
+                      </HBox.margin>
+                    </CheckBox>
+                    <CheckBox fx:id="CBvoltagePhase2" mnemonicParsing="false" text="faza 2" HBox.margin="$x2" />
+                    <CheckBox fx:id="CBvoltagePhase3" mnemonicParsing="false" text="faza 3" HBox.margin="$x2" />
+                  </children>
+                </HBox>
               </children>
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="-1.0" minWidth="10.0" prefWidth="-1.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="313.0" minHeight="10.0" prefHeight="275.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="313.0" minHeight="10.0" prefHeight="280.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="313.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
           </content>
@@ -101,7 +113,7 @@
           <content>
             <GridPane id="gridPane1" fx:id="gridPane3" alignment="CENTER">
               <children>
-                <LineChart id="LineChart" fx:id="lineChart3" prefHeight="302.0" prefWidth="700.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <LineChart fx:id="lineChart3" prefHeight="302.0" prefWidth="700.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
                   <xAxis>
                     <CategoryAxis side="BOTTOM" />
                   </xAxis>
@@ -125,7 +137,7 @@
           <content>
             <GridPane id="gridPane1" fx:id="gridPane4" alignment="CENTER">
               <children>
-                <LineChart id="LineChart" fx:id="lineChart4" prefHeight="302.0" prefWidth="700.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <LineChart fx:id="lineChart4" prefHeight="302.0" prefWidth="700.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
                   <xAxis>
                     <CategoryAxis side="BOTTOM" />
                   </xAxis>
@@ -149,7 +161,7 @@
           <content>
             <GridPane id="gridPane1" fx:id="gridPane5" alignment="CENTER">
               <children>
-                <LineChart id="LineChart" fx:id="lineChart5" prefHeight="302.0" prefWidth="700.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <LineChart fx:id="lineChart5" prefHeight="302.0" prefWidth="700.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
                   <xAxis>
                     <CategoryAxis side="BOTTOM" />
                   </xAxis>
