@@ -384,4 +384,6 @@ public class FXMLDocumentController implements Initializable {
             lineChart3.getData().addAll(series3m);
         }
     }
+    
+    
 }

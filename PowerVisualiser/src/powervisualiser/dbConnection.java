@@ -51,10 +51,12 @@ public class dbConnection {
     private Connection con;
     Statement stmt;
 
-    public void connectToDatabase(String databaseAddress, String portNumber) throws SQLException, ClassNotFoundException, IOException {
+    public void connectToDatabase(String databaseAddress, String portNumber, String login, String password) throws SQLException, ClassNotFoundException, IOException {
 
         Class.forName("com.mysql.jdbc.Driver");
-        con = DriverManager.getConnection("jdbc:mysql://" + databaseAddress + ":" + portNumber + "/data_history", "usr1", "pass");
+        con = DriverManager.getConnection("jdbc:mysql://" + databaseAddress + ":" + portNumber + "/data_history", login, password);
+        
+        // localhost:3306, usr1, pass
 
         stmt = con.createStatement();
 //        ResultSet lm = stmt.executeQuery("SELECT * FROM data_history");

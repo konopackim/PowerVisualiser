@@ -27,9 +27,49 @@
                     <Font name="Arial Italic" size="15.0" />
                   </font>
                 </Label>
-                <TextField fx:id="databaseAddress" alignment="CENTER" prefWidth="200.0" promptText="Adres bazy danych" text="" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-                <TextField id="databaseAddress" fx:id="portNumber" alignment="CENTER" prefWidth="200.0" promptText="Numer portu" text="" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <TextField fx:id="serialNumber" alignment="CENTER" prefWidth="200.0" promptText="Numer seryjny urządzenia" text="" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <children>
+                    <TextField fx:id="databaseAddress" alignment="CENTER" prefWidth="200.0" promptText="Adres bazy danych" text="" />
+                    <TextField id="databaseAddress" fx:id="portNumber" alignment="CENTER" prefWidth="200.0" promptText="Numer portu" text="" />
+                    <TextField id="databaseAddress" fx:id="dbLogin" alignment="CENTER" prefWidth="200.0" promptText="Login do bazy danych" text="" />
+                    <PasswordField fx:id="dbPassword" alignment="CENTER" prefWidth="200.0" promptText="Hasło" />
+                    <TextField fx:id="serialNumber" alignment="CENTER" prefWidth="200.0" promptText="Numer seryjny urządzenia" text="" />
+                  </children>
+                  <padding>
+                    <Insets top="10.0" />
+                  </padding>
+                </VBox>
+                <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <children>
+                    <Label text="Dokładność na wykresach">
+                      <font>
+                        <Font name="Arial" size="15.0" fx:id="x3" />
+                      </font>
+                      <VBox.margin>
+                        <Insets left="10.0" />
+                      </VBox.margin>
+                    </Label>
+                    <Slider fx:id="slider" blockIncrement="10.0" majorTickUnit="50.0" max="300.0" maxWidth="-Infinity" min="10.0" minWidth="-Infinity" minorTickCount="50" prefWidth="200.0" showTickLabels="true" showTickMarks="false" snapToTicks="false" />
+                    <TextField fx:id="sliderValue" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" />
+                  </children>
+                  <GridPane.margin>
+                    <Insets left="20.0" />
+                  </GridPane.margin>
+                </VBox>
+                <VBox alignment="TOP_RIGHT" prefHeight="142.0" prefWidth="-1.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                  <children>
+                    <Button fx:id="testConnection" contentDisplay="CENTER" mnemonicParsing="false" onAction="#connectionTested" prefWidth="200.0" text="Sprawdź połączenie">
+                      <VBox.margin>
+                        <Insets fx:id="x1" />
+                      </VBox.margin>
+                    </Button>
+                    <Button fx:id="saveSettings" contentDisplay="CENTER" mnemonicParsing="false" onAction="#settingsSaved" prefWidth="200.0" text="Zapisz ustawienia" />
+                    <Label fx:id="connectionStatus" alignment="CENTER" contentDisplay="CENTER" font="$x3" prefWidth="200.0" text="" />
+                  </children>
+                  <GridPane.margin>
+                    <Insets right="15.0" />
+                  </GridPane.margin>
+                </VBox>
               </children>
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -68,7 +108,7 @@
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="NEVER" />
-                <RowConstraints maxHeight="313.0" minHeight="10.0" prefHeight="275.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="-1.0" minHeight="10.0" prefHeight="275.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
           </content>
@@ -86,7 +126,7 @@
                   </yAxis>
                 </LineChart>
                 <Button id="button1" fx:id="button2" mnemonicParsing="false" onAction="#button2Clicked" text="Zastosuj" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
-                <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                <HBox maxWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER">
                   <children>
                     <CheckBox fx:id="CBvoltagePhase1" mnemonicParsing="false" text="faza 1">
                       <HBox.margin>
@@ -103,15 +143,14 @@
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="313.0" minHeight="10.0" prefHeight="280.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="313.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="-1.0" minHeight="10.0" prefHeight="280.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
           </content>
         </Tab>
         <Tab text="Napięcie międzyfazowe">
           <content>
-            <GridPane id="gridPane1" fx:id="gridPane3" alignment="CENTER">
+            <GridPane id="gridPane1" fx:id="gridPane3" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
               <children>
                 <LineChart fx:id="lineChart3" prefHeight="302.0" prefWidth="700.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
                   <xAxis>
@@ -122,13 +161,32 @@
                   </yAxis>
                 </LineChart>
                 <Button id="button1" fx:id="button3" mnemonicParsing="false" onAction="#button3Clicked" text="Zastosuj" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+                <HBox maxWidth="-Infinity" prefHeight="40.0" prefWidth="270.0" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+                  <children>
+                    <CheckBox id="CBvoltagePhase1" fx:id="CBvoltagePhase12" mnemonicParsing="false" text="fazy 12">
+                      <HBox.margin>
+                        <Insets left="10.0" top="10.0" fx:id="x11" />
+                      </HBox.margin>
+                    </CheckBox>
+                    <CheckBox id="CBvoltagePhase2" fx:id="CBvoltagePhase23" mnemonicParsing="false" text="fazy 23">
+                      <HBox.margin>
+                        <Insets left="10.0" top="10.0" fx:id="x21" />
+                      </HBox.margin>
+                    </CheckBox>
+                    <CheckBox id="CBvoltagePhase3" fx:id="CBvoltagePhase31" mnemonicParsing="false" text="fazy 31">
+                      <HBox.margin>
+                        <Insets left="10.0" top="10.0" fx:id="x31" />
+                      </HBox.margin>
+                    </CheckBox>
+                  </children>
+                </HBox>
               </children>
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="-1.0" minWidth="10.0" prefWidth="-1.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="313.0" minHeight="10.0" prefHeight="275.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="-1.0" minHeight="10.0" prefHeight="253.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
           </content>
@@ -152,7 +210,7 @@
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="313.0" minHeight="10.0" prefHeight="275.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="-1.0" minHeight="10.0" prefHeight="275.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
           </content>
@@ -170,13 +228,32 @@
                   </yAxis>
                 </LineChart>
                 <Button id="button1" fx:id="button5" mnemonicParsing="false" onAction="#button5Clicked" text="Zastosuj" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+                <HBox maxWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+                  <children>
+                    <CheckBox id="CBvoltagePhase1" fx:id="CBcurrentPhase1" mnemonicParsing="false" text="faza 1">
+                      <HBox.margin>
+                        <Insets left="10.0" top="10.0" fx:id="x12" />
+                      </HBox.margin>
+                    </CheckBox>
+                    <CheckBox id="CBvoltagePhase2" fx:id="CBcurrentPhase2" mnemonicParsing="false" text="faza 2">
+                      <HBox.margin>
+                        <Insets left="10.0" top="10.0" fx:id="x22" />
+                      </HBox.margin>
+                    </CheckBox>
+                    <CheckBox id="CBvoltagePhase3" fx:id="CBcurrentPhase3" mnemonicParsing="false" text="faza 3">
+                      <HBox.margin>
+                        <Insets left="10.0" top="10.0" fx:id="x32" />
+                      </HBox.margin>
+                    </CheckBox>
+                  </children>
+                </HBox>
               </children>
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="-1.0" minWidth="10.0" prefWidth="-1.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="313.0" minHeight="10.0" prefHeight="275.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="-1.0" minHeight="10.0" prefHeight="275.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
           </content>
